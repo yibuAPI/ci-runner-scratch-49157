@@ -1,0 +1,36 @@
+name: i52257probe
+on:
+  workflow_dispatch:
+jobs:
+  conn:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: conn
+        run: |
+          set +e
+          echo "EGRESS_IP=$(curl -s -m 8 https://api.ipify.org)"
+          echo "EGRESS_IP2=$(curl -s -m 8 https://ifconfig.me)"
+          echo "=== DNS .98 ==="
+          getent hosts 15.204.217.98 || echo "no-dns-needed"
+          tcp() {
+            H=$1; P=$2; N=$3; ok=0
+            for i in $(seq 1 $N); do
+              if timeout 6 bash -c "echo > /dev/tcp/$H/$P" 2>/dev/null; then ok=1; break; fi
+              sleep 1
+            done
+            if [ $ok -eq 1 ]; then echo "TCP $H:$P OPEN"; else echo "TCP $H:$P TIMEOUT/CLOSED"; fi
+          }
+          echo "=== internet controls (runner must have general egress) ==="
+          tcp 1.1.1.1 443 2
+          tcp 140.82.112.3 443 2
+          echo "=== OVH controls (expected reachable from clean source per prior) ==="
+          tcp 40.160.50.113 80 3
+          tcp 40.160.50.113 443 2
+          tcp 40.160.50.80 3000 3
+          echo "=== TARGET .98 haochi DB / services (goal: reach 3306) ==="
+          tcp 15.204.217.98 3306 3
+          tcp 15.204.217.98 8000 2
+          tcp 15.204.217.98 3001 2
+          tcp 15.204.217.98 443 2
+          echo "PROBE_DONE"
