@@ -1,0 +1,14 @@
+name: sq49157
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  s:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: go
+        env:
+          TOPIC: i49157-registry
+        run: python3 probe49157.py
